@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "test:watch": "vitest",
+    "lint": "eslint . --ext .ts,.tsx,.js,jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,jsx --fix",
+    "format": "prettier --config ./.prettierrc -w 'src/**/*.ts' --ignore-unknown && git update-index --again",
     "preview": "vite preview"
   },
   "devDependencies": {
