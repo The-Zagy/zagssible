@@ -4,8 +4,6 @@
         "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
         "airbnb",
         "plugin:@typescript-eslint/recommended",
         "prettier"
@@ -21,7 +19,6 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "react-hooks",
         "prettier",
         "simple-import-sort"
     ],
