@@ -4,11 +4,13 @@ class Component {
     private children: Component[];
     private slot: HTMLElement;
     constructor(template?: string) {
+        //create element with template
         this.element = document.createElement('div');
         this.children = [];
         this.slot = this.element;
         if (template) {
             this.element.innerHTML = template;
+            this.element = this.element.firstElementChild as HTMLElement;
             //search for slot attribute with main value
             const slot = this.element.querySelector('[slot="main"]');
             if (slot) {
