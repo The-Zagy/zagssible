@@ -54,7 +54,7 @@ class App extends Component {
         this.textResizer = new TextResizer(this.appId);
         this.images = new Images(this.appId);
         this.misc = new Misc(this.appId);
-        this.color = new Color();
+        this.color = new Color(this.appId);
         this.widgetOpen = false;
         this.showButton = this.element.querySelector(`#${appId}-show`)!;
         this.widget = this.element.querySelector(`#${appId}-widget`)!;

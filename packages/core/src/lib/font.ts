@@ -15,9 +15,7 @@ class TextResizer {
                     //check if added node is a text node, if so apply resize and append to textNodes
                     if (addedNode.hasChildNodes() && addedNode instanceof Element) {
                         //traverse and check if any children are text nodes
-                        console.log(addedNode)
                         const textNodes = this.getAllTextNodes(addedNode);
-                        console.log(textNodes)
                         textNodes.forEach((textNode) => {
                             this._resize(textNode);
                             this.textNodes.push(textNode);

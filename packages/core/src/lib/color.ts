@@ -3,7 +3,14 @@ class Color{
     private contrast: number = 1;
     private brightness: number = 1;
     private inverted: boolean = false;
-
+    private appId: string;
+    private styleElement: HTMLStyleElement;
+    constructor(appId:string){
+        this.appId = appId;
+        this.styleElement = document.createElement("style");
+        this.styleElement.setAttribute("id", `${this.appId}-color`);
+        document.head.appendChild(this.styleElement);
+    }
     invertColor(){
         this.inverted = !this.inverted;
         this.updateColor();
@@ -77,8 +84,16 @@ class Color{
     }
 
     private updateColor(){
-        const bodyStyle = document.body.style;
-        bodyStyle.filter = `saturate(${this.saturation}) contrast(${this.contrast}) brightness(${this.brightness}) filter(${this.inverted?"invert(1)":"invert(0)"})`;
+        
+        const filter = `saturate(${this.saturation}) contrast(${this.contrast}) brightness(${this.brightness}) ${this.inverted?"invert(1)":"invert(0)"}`;
+        const style = `
+        html{
+            filter: ${filter} !important;
+        }
+        `;
+
+        this.styleElement.innerHTML = style;
+
     }
 
 }
