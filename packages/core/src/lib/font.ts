@@ -15,8 +15,9 @@ class TextResizer {
                     //check if added node is a text node, if so apply resize and append to textNodes
                     if (addedNode.hasChildNodes() && addedNode instanceof Element) {
                         //traverse and check if any children are text nodes
+                        console.log(addedNode)
                         const textNodes = this.getAllTextNodes(addedNode);
-                        console.log(textNodes);
+                        console.log(textNodes)
                         textNodes.forEach((textNode) => {
                             this._resize(textNode);
                             this.textNodes.push(textNode);
@@ -62,35 +63,19 @@ class TextResizer {
             this._resize(node);
         });
     }
-    private _resize(node: TextNode):boolean {
-        const newSize = node[1] * this.sizeModifier;
-        if(newSize < MIN_FONT_SIZE || newSize > MAX_FONT_SIZE) {
-          return false;
-        };
-        const newLineHeight = node[2] * this.sizeModifier;
-        //get current style attribute
-        const style = node[0].parentElement?.getAttribute('style');
-        //check if style attribute exists
-        if (style) {
-            const updatedStyle = [];
-            const styles = style.split(';');
-            for (const s of styles) {
-                const trimmed = s.trim();
-                if (trimmed.startsWith('font-size:')) {
-                    updatedStyle.push(`font-size:${newSize}px;`);
-                } else if (trimmed.startsWith('line-height:')) {
-                    updatedStyle.push(`line-height:${newLineHeight}px;`);
-                } else {
-                    updatedStyle.push(trimmed);
-                }
-            }
-            node[0].parentElement?.setAttribute('style', updatedStyle.join(' '));
-        } else {
-            node[0].parentElement?.setAttribute(
-                'style',
-                `font-size:${newSize}px; line-height:${newLineHeight}px;`
-            );
-        }
+    private _resize([node, fontSize, lineHeight]: TextNode): boolean {
+        const newSize = fontSize * this.sizeModifier;
+        if (newSize < MIN_FONT_SIZE || newSize > MAX_FONT_SIZE) return false;
+        const newLineHeight = lineHeight * this.sizeModifier;
+        const style = node.parentElement?.getAttribute('style') ?? '';
+        const updatedStyle = style
+            .split(';')
+            .filter(Boolean)
+            .map((s) => s.trim())
+            .filter((s) => !s.startsWith('font-size:') && !s.startsWith('line-height:'))
+            .concat([`font-size:${newSize}px; line-height:${newLineHeight}px;`])
+            .join('; ');
+        node.parentElement?.setAttribute('style', updatedStyle);
         return true;
     }
     private nodeFontSize(node: Node) {
@@ -135,7 +120,6 @@ class TextResizer {
             ) {
                 let fontSize = this.nodeFontSize(node);
                 let lineHeight = this.nodeLineHeight(node);
-                console.log(fontSize, lineHeight);
                 if (fontSize && lineHeight) {
                     textNodes.push([node, fontSize, lineHeight]);
                 }
