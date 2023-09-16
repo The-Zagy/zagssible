@@ -19,6 +19,7 @@ class Images {
                         const imageElements = this.getAllImages(addedNode);
                         imageElements.forEach((imageElement) => {
                             this.images.push(imageElement);
+                            this.applyState(imageElement);
                         });
                     }
                 });
@@ -52,7 +53,7 @@ class Images {
                 const image:Image = [element, visibilityStyle];
                 imageElements.push(image);
             } else {
-                for (const child of element.childNodes) {
+                for (const child of Array.from(element.childNodes)) {
                     if (child instanceof Element) traverse(child);
                 }
             }
@@ -62,19 +63,31 @@ class Images {
     }
     hide() {
         this.images.forEach((image) => {
-            image[0].style.visibility = "hidden";
+           this._hide(image);
         });
         this.visible = false;
     }
+    private _hide(image: Image) {
+        image[0].style.visibility = "hidden";
+    }
     show() {
         this.images.forEach((image) => {
-            image[0].style.visibility = image[1];
+            this._show(image);
         });
         this.visible = true;
     }
+    _show(image: Image) {
+        image[0].style.visibility = image[1];
+    }
+
     toggle() {
         this.visible ? this.hide() : this.show();
     }
+    applyState(image: Image) {
+        this.visible ? this._show(image) : this._hide(image);
+    }
+
+
 }
 
 export default Images;
