@@ -1,0 +1,27 @@
+{
+  "name": "react-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^4.4.9",
+    "vite-tsconfig-paths": "^4.2.0",
+    "@zaggsible/ui": "workspace:*",
+    "@zaggsible/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@zaggsible/config": "workspace:*",
+
+    "typescript": "^4.5.3"
+  }
+}

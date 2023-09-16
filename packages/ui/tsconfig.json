@@ -1,0 +1,27 @@
+{
+  "extends": "@zaggsible/config/base.json",
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "files": [
+    "src/index.ts"
+  ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "es2020",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  }
+}
